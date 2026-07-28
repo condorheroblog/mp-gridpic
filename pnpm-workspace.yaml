@@ -1,0 +1,6 @@
+shellEmulator: true
+
+trustPolicy: no-downgrade
+
+allowBuilds:
+  simple-git-hooks: true

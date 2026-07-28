@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+/* Tailwind v4: 把暗色变体从默认的 prefers-color-scheme 改成基于 .dark class */
+@custom-variant dark (&:where(.dark, .dark *));
+
+html,
+body,
+#root {
+	height: 100%;
+}
+
+/* 公众号移动端滚动体验：body 留出滚动条，避免橡皮筋 */
+html {
+	-webkit-text-size-adjust: 100%;
+}

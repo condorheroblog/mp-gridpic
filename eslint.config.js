@@ -1,0 +1,24 @@
+import antfu from "@antfu/eslint-config";
+
+export default antfu({
+	react: true,
+	ignores: [
+		"dist/**",
+		"node_modules/**",
+		".trae/**",
+		"*.md",
+	],
+	rules: {
+		"style/quotes": ["error", "double"],
+		"style/semi": ["error", "always"],
+		"style/indent": ["error", "tab"],
+		"jsonc/indent": ["error", "tab"],
+		"style/no-tabs": "off",
+		"style/jsx-indent-props": ["error", "tab"],
+		"style/no-mixed-spaces-and-tabs": "off",
+		"style/indent-binary-ops": "off",
+		"react-hooks/exhaustive-deps": "off",
+		"react/dom-no-dangerously-set-innerhtml": "off",
+		"react/set-state-in-effect": "off",
+	},
+});

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 447 447" width="447" height="447">
+  <!-- 品牌色圆角背景 -->
+  <rect width="447" height="447" rx="80" fill="#b1cb39"/>
+
+  <!-- 左上图：圆角图片卡 + 山峰+太阳图标 -->
+  <rect x="74" y="74" width="138" height="138" rx="22" fill="#ffffff"/>
+  <circle cx="106" cy="106" r="9" fill="#b1cb39"/>
+  <path d="M86 198 L132 148 L156 172 L196 130 L196 198 Z" fill="#b1cb39"/>
+
+  <!-- 右上图：圆角图片卡 + 山峰+太阳图标 -->
+  <rect x="235" y="74" width="138" height="138" rx="22" fill="#ffffff"/>
+  <circle cx="267" cy="106" r="9" fill="#b1cb39"/>
+  <path d="M247 198 L293 148 L317 172 L357 130 L357 198 Z" fill="#b1cb39"/>
+
+  <!-- 左下图：圆角图片卡 + 山峰+太阳图标 -->
+  <rect x="74" y="235" width="138" height="138" rx="22" fill="#ffffff"/>
+  <circle cx="106" cy="267" r="9" fill="#b1cb39"/>
+  <path d="M86 359 L132 309 L156 333 L196 291 L196 359 Z" fill="#b1cb39"/>
+
+  <!-- 右下图：圆角图片卡 + 山峰+太阳图标 -->
+  <rect x="235" y="235" width="138" height="138" rx="22" fill="#ffffff"/>
+  <circle cx="267" cy="267" r="9" fill="#b1cb39"/>
+  <path d="M247 359 L293 309 L317 333 L357 291 L357 359 Z" fill="#b1cb39"/>
+</svg>
