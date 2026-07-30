@@ -4,3 +4,7 @@ trustPolicy: no-downgrade
 
 allowBuilds:
   simple-git-hooks: true
+
+overrides:
+  '@trickfilm400/rollup-plugin-off-main-thread': 2.5.0
+  semver: ^7.6.0
