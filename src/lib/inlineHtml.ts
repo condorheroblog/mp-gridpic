@@ -46,12 +46,15 @@ function toStyleText(style: Record<string, string | number | undefined>): string
 		.join(";");
 }
 
-/** 把 StyleTheme 中的阴影计算成 box-shadow 字符串;没开启阴影则返回 undefined。 */
+/**
+ * 把 StyleTheme 中的阴影计算成 box-shadow 字符串;没开启阴影则返回 undefined。
+ * 阴影落在图片右下角,水平与垂直偏移相等,形成 45° 方向的投射效果。
+ */
 function shadowValue(theme: StyleTheme): string | undefined {
 	if (!theme.shadow)
 		return undefined;
 	const preset = SHADOW_PRESETS[theme.shadowPreset];
-	return `0 ${preset.offsetY}px ${preset.blur}px ${preset.color}`;
+	return `${preset.offsetX}px ${preset.offsetY}px ${preset.blur}px ${preset.color}`;
 }
 
 /**

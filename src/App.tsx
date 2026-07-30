@@ -6,8 +6,11 @@ import { Canvas } from "./components/canvas/Canvas";
 import { TopBar } from "./components/layout/TopBar";
 import { TabsPanel } from "./components/panels/TabsPanel";
 import { ToastContainer } from "./components/ui/ToastContainer";
+import { useUrlSync } from "./hooks/useUrlSync";
 
 export default function App() {
+	// 把当前版式/样式同步到 URL query,支持通过链接分享当前画布
+	useUrlSync();
 	return (
 		<div className="min-h-screen bg-zinc-100 text-zinc-900 transition-colors dark:bg-zinc-950 dark:text-zinc-50">
 			<TopBar />

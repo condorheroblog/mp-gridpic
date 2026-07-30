@@ -24,11 +24,15 @@ const BASE_CARD_DARK = {
 	cardBackground: "#09090b",
 };
 
-/** 阴影预设 - 提供小、中、大三档,统一控制模糊/偏移/颜色 */
-export const SHADOW_PRESETS: Record<ShadowPreset, { blur: number, offsetY: number, color: string }> = {
-	small: { blur: 8, offsetY: 2, color: "rgba(15,23,42,0.10)" },
-	medium: { blur: 16, offsetY: 4, color: "rgba(15,23,42,0.18)" },
-	large: { blur: 32, offsetY: 8, color: "rgba(15,23,42,0.25)" },
+/**
+ * 阴影预设 - 提供小、中、大三档,统一控制模糊/偏移/颜色
+ * 阴影落在图片右下角,故同时存在水平(offsetX)与垂直(offsetY)偏移,
+ * offsetX = offsetY 保证斜向下 45° 投射,视觉上更自然。
+ */
+export const SHADOW_PRESETS: Record<ShadowPreset, { blur: number, offsetX: number, offsetY: number, color: string }> = {
+	small: { blur: 8, offsetX: 2, offsetY: 2, color: "rgba(15,23,42,0.10)" },
+	medium: { blur: 16, offsetX: 4, offsetY: 4, color: "rgba(15,23,42,0.18)" },
+	large: { blur: 32, offsetX: 8, offsetY: 8, color: "rgba(15,23,42,0.25)" },
 };
 
 export const STYLE_PRESETS: StylePreset[] = [
@@ -42,7 +46,7 @@ export const STYLE_PRESETS: StylePreset[] = [
 			borderRadius: 0,
 			shadow: false,
 			shadowPreset: "medium",
-			scrollHeight: 240,
+			scrollHeight: 400,
 			itemRatio: 1,
 			...BASE_CARD_LIGHT,
 			...BASE_CAPTION,
@@ -59,7 +63,7 @@ export const STYLE_PRESETS: StylePreset[] = [
 			borderRadius: 12,
 			shadow: true,
 			shadowPreset: "medium",
-			scrollHeight: 260,
+			scrollHeight: 400,
 			itemRatio: 1,
 			...BASE_CARD_LIGHT,
 			...BASE_CAPTION,
@@ -76,7 +80,7 @@ export const STYLE_PRESETS: StylePreset[] = [
 			borderRadius: 14,
 			shadow: true,
 			shadowPreset: "large",
-			scrollHeight: 300,
+			scrollHeight: 400,
 			itemRatio: 1,
 			...BASE_CARD_LIGHT,
 			...BASE_CAPTION,
