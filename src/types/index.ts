@@ -44,7 +44,10 @@ export type LayoutKind
 	| "vscroll";
 
 export interface StyleTheme {
-	/** 整组图片外层容器的外边距,单位 px */
+	/**
+	 * 整组图片最外层容器(在版式之外、包裹一切的外壳)与预览/导出画布之间的间距,
+	 * 对应"容器外边距"。单位 px。
+	 */
 	containerPadding: number
 	/** 图片与图片之间的间距,单位 px */
 	gap: number

@@ -67,7 +67,7 @@ export default {
 		card: "卡片",
 		gallery: "画廊",
 		title: "样式",
-		containerPadding: "图片边距",
+		containerPadding: "容器外边距",
 		gap: "图片间距",
 		borderRadius: "图片圆角",
 		shadow: "图片阴影",

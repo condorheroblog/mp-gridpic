@@ -42,7 +42,7 @@ export const STYLE_PRESETS: StylePreset[] = [
 		isBuiltIn: true,
 		theme: {
 			containerPadding: 0,
-			gap: 8,
+			gap: 16,
 			borderRadius: 0,
 			shadow: false,
 			shadowPreset: "medium",
@@ -59,7 +59,7 @@ export const STYLE_PRESETS: StylePreset[] = [
 		isBuiltIn: true,
 		theme: {
 			containerPadding: 0,
-			gap: 12,
+			gap: 24,
 			borderRadius: 12,
 			shadow: true,
 			shadowPreset: "medium",
@@ -76,7 +76,7 @@ export const STYLE_PRESETS: StylePreset[] = [
 		isBuiltIn: true,
 		theme: {
 			containerPadding: 0,
-			gap: 10,
+			gap: 32,
 			borderRadius: 14,
 			shadow: true,
 			shadowPreset: "large",

@@ -67,7 +67,7 @@ export default {
 		card: "Card",
 		gallery: "Gallery",
 		title: "Style",
-		containerPadding: "Padding",
+		containerPadding: "Container margin",
 		gap: "Gap",
 		borderRadius: "Radius",
 		shadow: "Shadow",

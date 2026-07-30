@@ -1,12 +1,15 @@
 /**
  * 固定区域垂直滚动画廊 - 通过固定 height + overflow-y:auto 实现
  *
- * 结构与 HScrollLayout 对齐:外层是带边框/圆角的卡片外壳(用户可直观看到复制后会带边框),
- * 内部滚动容器只负责图片的纵向滚动,"上下滑动查看"提示放在滚动容器外部,避免被覆盖。
+ * 注意:外层"卡片外壳"(border / radius / padding / background)由父级 LayoutRenderer 统一提供,
+ * 本组件只负责"滚动容器 + 图片项 + 提示文案",避免重复嵌套造成 padding / 边框叠加。
+ *
+ * 结构与 HScrollLayout 对齐:内部滚动容器只负责图片的纵向滚动,"上下滑动查看"提示放在
+ * 滚动容器外部,避免被覆盖。
  *
  * 间距规范(三者:说明 / 图片 / 提示文案,与 HScrollLayout 保持一致):
- *   - 整体上下边距 = 10px(由卡片外壳的 padding 控制,说明隐藏时结构依然对称)
- *   - 左右总间距 = 20px(卡片外壳 padding 10px + 滚动容器 padding:0 10px,图片与卡片边缘留 20px)
+ *   - 整体上下边距 = 卡片外壳 padding 控制(由 LayoutRenderer 提供)
+ *   - 滚动容器左右 padding = 10px(图片与卡片左右边缘留 10px)
  *   - 说明 ↔ 图片 = 10px(由 ImageCaption 的 margin 控制)
  *   - 图片 ↔ 提示文案 = 10px(由提示 p 的 margin-top 控制)
  */
@@ -25,24 +28,6 @@ interface LayoutProps {
 const BLOCK_GAP = 10;
 
 export function VScrollLayout({ images, theme, dark: _dark }: LayoutProps) {
-	// 卡片外壳:边框 + 圆角 + overflow:hidden + padding 由 theme.cardPadding 控制,
-	// 与 HScrollLayout 的卡片外壳结构对齐,让用户在预览区直观看到复制后会带边框。
-	// padding 取自样式主题;滚动容器仍保留左右 10px,保证图片与卡片边缘留有视觉间距。
-	const cardStyle: CSSProperties = {
-		display: "inline-block",
-		width: "100%",
-		verticalAlign: "top",
-		alignSelf: "flex-start",
-		flex: "0 0 auto",
-		borderStyle: "solid",
-		borderWidth: "1px",
-		borderColor: theme.cardBorderColor,
-		borderRadius: `${theme.cardRadius}px`,
-		overflow: "hidden",
-		padding: `${theme.cardPadding}px`,
-		background: theme.cardBackground,
-		boxSizing: "border-box",
-	};
 	// 滚动容器:固定高度 + overflow-y:auto,只负责图片的滚动;
 	// 这里不再包含"上下滑动查看"提示,提示放在滚动容器外部,避免被覆盖在图片上。
 	const scrollerStyle: CSSProperties = {
@@ -69,7 +54,7 @@ export function VScrollLayout({ images, theme, dark: _dark }: LayoutProps) {
 		boxSizing: "border-box",
 	};
 	return (
-		<section style={cardStyle}>
+		<>
 			<section style={scrollerStyle}>
 				{images.map((image, index) => (
 					<section
@@ -84,6 +69,6 @@ export function VScrollLayout({ images, theme, dark: _dark }: LayoutProps) {
 			<p style={hintStyle} className="select-none">
 				上下滑动查看
 			</p>
-		</section>
+		</>
 	);
 }

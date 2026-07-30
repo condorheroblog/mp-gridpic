@@ -1,8 +1,11 @@
 /**
  * 横向滑动画廊 - 严格遵循公众号编辑器静态规范
  *
+ * 注意:外层"卡片外壳"(border / radius / padding / background)由父级 LayoutRenderer 统一提供,
+ * 本组件只负责"滚动视口 + 内容容器 + 图片项 + 提示文案",避免重复嵌套造成 padding / 边框叠加。
+ *
  * 间距规范(三者:说明 / 图片 / 提示文案,横竖向滚动版式保持一致):
- *   - 整体上下边距 = 10px(由卡片外壳 padding 控制,说明隐藏时结构依然对称)
+ *   - 整体上下边距 = 卡片外壳 padding 控制(由 LayoutRenderer 提供)
  *   - 滚动视口左右 padding = 10px(图片与卡片左右边缘留 10px)
  *   - 说明 ↔ 图片 = 10px(由 ImageCaption 的 margin 控制)
  *   - 图片 ↔ 提示文案 = 10px(由提示 p 的 margin-top 控制)
@@ -34,23 +37,6 @@ interface LayoutProps {
 const BLOCK_GAP = 10;
 
 export function HScrollLayout({ images, theme }: LayoutProps) {
-	// 卡片外壳:边框 + 圆角 + overflow:hidden + padding 由 theme.cardPadding 控制,
-	// 补齐整体上下边距,确保提示文案与图片节奏对称。
-	const cardStyle: CSSProperties = {
-		display: "inline-block",
-		width: "100%",
-		verticalAlign: "top",
-		alignSelf: "flex-start",
-		flex: "0 0 auto",
-		borderStyle: "solid",
-		borderWidth: "1px",
-		borderColor: theme.cardBorderColor,
-		borderRadius: `${theme.cardRadius}px`,
-		overflow: "hidden",
-		padding: `${theme.cardPadding}px`,
-		background: theme.cardBackground,
-		boxSizing: "border-box",
-	};
 	// 滚动视口:overflow-x:auto + 左右 padding 10px。
 	const viewportStyle: CSSProperties = {
 		display: "inline-block",
@@ -102,15 +88,13 @@ export function HScrollLayout({ images, theme }: LayoutProps) {
 		background: "transparent",
 	};
 	return (
-		<section style={cardStyle}>
-			<section style={viewportStyle}>
-				<section style={scrollerStyle}>
-					{images.map(image => (
-						<section key={image.id} style={itemStyle()}>
-							<ImageBlock image={image} theme={theme} />
-						</section>
-					))}
-				</section>
+		<section style={viewportStyle}>
+			<section style={scrollerStyle}>
+				{images.map(image => (
+					<section key={image.id} style={itemStyle()}>
+						<ImageBlock image={image} theme={theme} />
+					</section>
+				))}
 			</section>
 			{/* 左右滑动查看 提示文案 */}
 			<p style={captionStyle} className="select-none">

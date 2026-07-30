@@ -217,7 +217,8 @@ function hScrollGalleryHtml(images: ImageItem[], theme: StyleTheme): string {
 	if (images.length === 0)
 		return "";
 
-	// 卡片外壳:边框 + 圆角 + overflow:hidden + 上下 10px padding。
+	// 卡片外壳:边框 + 圆角 + overflow:hidden + 上下左右 padding 由 theme.cardPadding 控制,
+	// 与 LayoutRenderer 在预览区提供的卡片外壳结构保持一致,保证预览/复制视觉同步。
 	const cardStyle = toStyleText({
 		display: "inline-block",
 		width: "100%",
@@ -229,7 +230,7 @@ function hScrollGalleryHtml(images: ImageItem[], theme: StyleTheme): string {
 		borderColor: theme.cardBorderColor,
 		borderRadius: `${theme.cardRadius}px`,
 		overflow: "hidden",
-		padding: "10px 0",
+		padding: `${theme.cardPadding}px`,
 		boxSizing: "border-box",
 	});
 	// 滚动视口:overflow-x:auto + 左右 padding 10px。
