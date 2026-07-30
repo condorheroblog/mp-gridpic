@@ -1,0 +1,1 @@
+if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/mp-gridpic/sw.js', { scope: '/mp-gridpic/' })})}
