@@ -7,8 +7,9 @@
  *   - 说明 ↔ 图片 = 10px(由 ImageCaption 的 margin 控制)
  *   - 图片 ↔ 提示文案 = 10px(由提示 p 的 margin-top 控制)
  *
- * 内容容器宽度公式:images.length × itemRatio(默认 0.6),
+ * 内容容器宽度公式:images.length × theme.itemRatio,
  * 单张图固定占视口的 itemRatio,横向滚动根据图片个数自动生效。
+ * itemRatio 来自样式主题,默认 1(= 不滚动,刚好一图一屏)。
  *
  * 公众号静态规范注意事项:
  *  - 不设置 font-family,完全沿用平台默认字体栈。
@@ -62,8 +63,8 @@ export function HScrollLayout({ images, theme }: LayoutProps) {
 	};
 	// 内容容器:宽度 = 图片张数 × 单图占比(视口百分比),根据图片个数自动分配,
 	// 不再使用硬编码 300% / rotate hack,新结构依赖明确的百分比宽度让横向滚动持续生效。
-	// 单张图占视口的 itemRatio(默认 60%),所以内容容器宽度 = N × itemRatio。
-	const itemRatio = 0.6;
+	// 单张图占视口的 theme.itemRatio(默认 1),所以内容容器宽度 = N × itemRatio。
+	const itemRatio = theme.itemRatio;
 	const scrollerStyle: CSSProperties = {
 		overflow: "hidden",
 		width: `${(images.length * itemRatio * 100).toFixed(4)}%`,
@@ -72,7 +73,7 @@ export function HScrollLayout({ images, theme }: LayoutProps) {
 	// 单张图占内容容器的 1/N,折算到视口就是 itemRatio:
 	//   实际宽度 = (1/N) × (N × itemRatio) = itemRatio,与图片个数无关。
 	// 横向间距 = theme.gap:把总间距平分到每张图两侧的 padding,
-	// 让用户配置的"图片间距"在横向滚动版式下也能生效。
+	// 让用户配置的"图片间距"在横向排列场景下也能生效。
 	const halfGap = theme.gap / 2;
 	const itemWidthPercent = images.length > 0 ? (1 / images.length) * 100 : 100;
 	const itemStyle = (): CSSProperties => ({

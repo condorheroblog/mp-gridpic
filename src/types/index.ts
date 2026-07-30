@@ -56,8 +56,11 @@ export interface StyleTheme {
 	shadowPreset: ShadowPreset
 	/** 横向/纵向画廊的滑动区域高度,仅对 hscroll/vscroll 生效 */
 	scrollHeight: number
-	/** 横向画廊每张图固定宽度,仅对 hscroll 生效 */
-	scrollItemWidth: number
+	/**
+	 * 横向画廊单图占比(视口百分比),仅对 hscroll 生效。
+	 * 1 表示每张图占满视口宽度,<1 时形成横向滚动。<1 时相邻两张图会自然露出 1-ratio 的部分。
+	 */
+	itemRatio: number
 	/** 预览卡片的内边距,导出时连同外层卡片一起复制到公众号 */
 	cardPadding: number
 	/** 预览卡片的圆角,导出时连同外层卡片一起复制到公众号 */

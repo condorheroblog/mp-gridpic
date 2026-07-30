@@ -79,7 +79,7 @@ export default {
 			large: "Large",
 		},
 		scrollHeight: "Scroll height",
-		scrollItemWidth: "Item width",
+		itemRatio: "Item ratio",
 		cardSection: "Outer card (copied with export)",
 		cardPadding: "Card padding",
 		cardRadius: "Card radius",

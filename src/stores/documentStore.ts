@@ -16,11 +16,12 @@ function migrateTheme(theme: Partial<StyleTheme> | null | undefined): StyleTheme
 		return null;
 	const fallback = getStylePreset("style.standard").theme;
 	// 旧版本含 shadowBlur / shadowColor / shadowOffsetY 字段,新版本合并为 shadowPreset,
-	// 因此显式剔除旧字段避免污染。
+	// 因此显式剔除旧字段避免污染。scrollItemWidth 已在重构中替换为 itemRatio,同样需要剔除。
 	const cleaned: Partial<StyleTheme> = { ...theme };
 	delete (cleaned as Record<string, unknown>).shadowBlur;
 	delete (cleaned as Record<string, unknown>).shadowColor;
 	delete (cleaned as Record<string, unknown>).shadowOffsetY;
+	delete (cleaned as Record<string, unknown>).scrollItemWidth;
 	return {
 		...fallback,
 		...cleaned,

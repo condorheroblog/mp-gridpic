@@ -79,7 +79,7 @@ export default {
 			large: "大",
 		},
 		scrollHeight: "滑动区高度",
-		scrollItemWidth: "单图宽度",
+		itemRatio: "单图占比",
 		cardSection: "外层卡片样式(随复制导出)",
 		cardPadding: "卡片内边距",
 		cardRadius: "卡片圆角",

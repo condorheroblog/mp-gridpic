@@ -22,6 +22,8 @@ export function StylePanel() {
 	const theme = useDocumentStore(state => state.theme());
 	const updateTheme = useDocumentStore(state => state.updateTheme);
 	const reset = useDocumentStore(state => state.resetThemeToPreset);
+	const layoutKind = useDocumentStore(state => state.layout().kind);
+	const isHScroll = layoutKind === "hscroll";
 
 	const handleUpdate = (patch: Partial<StyleTheme>) => updateTheme(patch);
 
@@ -81,14 +83,17 @@ export function StylePanel() {
 					value={theme.scrollHeight}
 					onChange={n => handleUpdate({ scrollHeight: n })}
 				/>
-				<NumberSlider
-					label={t("style.scrollItemWidth")}
-					suffix="px"
-					min={120}
-					max={480}
-					value={theme.scrollItemWidth}
-					onChange={n => handleUpdate({ scrollItemWidth: n })}
-				/>
+				{/* itemRatio 仅对横向滚动版式生效:1 = 一图一屏,<1 时形成横向滚动 */}
+				{isHScroll && (
+					<NumberSlider
+						label={t("style.itemRatio")}
+						step={0.1}
+						min={0.5}
+						max={1}
+						value={theme.itemRatio}
+						onChange={n => handleUpdate({ itemRatio: n })}
+					/>
+				)}
 			</div>
 			{/* 阴影 - 开关 + 三档预设,统一控制模糊/偏移/颜色,不再开放自定义参数 */}
 			<div className="flex flex-col gap-2 rounded-lg border border-zinc-200 p-2 dark:border-zinc-800">

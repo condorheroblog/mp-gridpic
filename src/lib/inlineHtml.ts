@@ -193,9 +193,9 @@ function stackHtml(blocks: string[], gap: number): string {
  *   │              左右滑动查看                   │
  *   └─────────────────────────────────────────┘
  *
- * 内容容器宽度公式:images.length × itemRatio(默认 0.6),
+ * 内容容器宽度公式:images.length × theme.itemRatio,
  * 单张图固定占视口的 itemRatio,横向滚动根据图片个数自动生效,
- * 不再使用硬编码 300% / rotate hack。
+ * 不再使用硬编码 300% / rotate hack。itemRatio 默认 1(= 不滚动,刚好一图一屏)。
  *
  * 间距规范(说明 / 图片 / 提示文案 三者间距 = 10px,与 vscroll 保持一致):
  *  - 整体上下边距 = 10px(由卡片外壳 padding 控制)
@@ -241,7 +241,7 @@ function hScrollGalleryHtml(images: ImageItem[], theme: StyleTheme): string {
 		boxSizing: "border-box",
 	});
 	// 内容容器:宽度 = 图片张数 × 单图占比(视口百分比),根据图片个数自动分配。
-	const itemRatio = 0.6;
+	const itemRatio = theme.itemRatio;
 	const scrollerStyle = toStyleText({
 		overflow: "hidden",
 		width: `${(images.length * itemRatio * 100).toFixed(4)}%`,
