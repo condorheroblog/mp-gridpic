@@ -15,7 +15,6 @@ export function Canvas() {
 	return (
 		<section className="flex flex-col gap-3">
 			<header className="flex items-center justify-between">
-				<h2 className="text-sm font-semibold text-zinc-700 dark:text-zinc-200">{t("app.preview")}</h2>
 				<span className="text-xs text-zinc-400 dark:text-zinc-500">
 					678px ·
 					{t(`layout.${layout.kind}`)}

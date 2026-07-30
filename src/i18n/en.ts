@@ -5,7 +5,6 @@ export default {
 	app: {
 		title: "WeChat Image Layout",
 		subtitle: "Image-only layout studio. One click paste into the WeChat editor.",
-		preview: "Live preview",
 		copy: "Copy to WeChat",
 		copySuccess: "Copied! Paste into the WeChat editor.",
 		copyFail: "Copy failed. Check clipboard permission.",
@@ -99,9 +98,6 @@ export default {
 		delete: "Delete",
 		rename: "Rename",
 		namePlaceholder: "Template name",
-	},
-	mobile: {
-		tip: "Preview inside the WeChat editor to confirm the real mobile render.",
 	},
 	common: {
 		confirm: "OK",

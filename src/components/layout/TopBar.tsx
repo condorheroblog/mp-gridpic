@@ -65,6 +65,15 @@ export function TopBar() {
 				<p className="text-xs text-zinc-500 dark:text-zinc-400">{t("app.subtitle")}</p>
 			</div>
 			<div className="ml-auto flex flex-wrap items-center gap-2">
+				<a
+					href="https://github.com/condorheroblog/mp-gridpic/"
+					target="_blank"
+					rel="noopener noreferrer"
+					className="inline-flex items-center justify-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium bg-transparent hover:bg-zinc-200/60 text-zinc-700 dark:text-zinc-200 dark:hover:bg-zinc-800/60 transition-all duration-150 ease-out hover:-translate-y-px hover:scale-[1.02] active:translate-y-0 active:scale-[0.97] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+					aria-label="GitHub"
+				>
+					GitHub
+				</a>
 				<Button variant="ghost" onClick={toggleLanguage}>
 					<span className={clsx("font-mono text-xs", i18n.language.startsWith("zh") ? "text-indigo-500" : "text-zinc-500")}>
 						中

@@ -5,7 +5,6 @@ export default {
 	app: {
 		title: "公众号图片排版",
 		subtitle: "纯图片版式工具,一键复制到公众号编辑器",
-		preview: "实时预览",
 		copy: "复制到公众号",
 		copySuccess: "已复制到剪贴板,可在公众号编辑器粘贴",
 		copyFail: "复制失败,请检查浏览器剪贴板权限",
@@ -99,9 +98,6 @@ export default {
 		delete: "删除",
 		rename: "重命名",
 		namePlaceholder: "模板名称",
-	},
-	mobile: {
-		tip: "建议在公众号编辑器中预览实际效果,移动端已适配全部交互",
 	},
 	common: {
 		confirm: "确定",
