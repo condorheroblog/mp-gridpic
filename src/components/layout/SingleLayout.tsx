@@ -2,7 +2,7 @@
  * 单图版式
  */
 import type { ImageItem, StyleTheme } from "../../types";
-import { ImageCell } from "../canvas/ImageCell";
+import { ImageBlock } from "./ImageBlock";
 
 interface LayoutProps {
 	images: ImageItem[]
@@ -14,12 +14,12 @@ export function SingleLayout({ images, theme }: LayoutProps) {
 	if (!first)
 		return null;
 	return (
-		<div style={{ display: "flex", justifyContent: "center" }}>
-			<ImageCell
+		<section style={{ margin: "0 auto", width: "100%", maxWidth: 600 }}>
+			<ImageBlock
 				image={first}
 				theme={theme}
-				style={{ width: "100%", maxWidth: 600, aspectRatio: `${first.ratio}` }}
+				imageStyle={{ width: "100%", aspectRatio: `${first.ratio}` }}
 			/>
-		</div>
+		</section>
 	);
 }

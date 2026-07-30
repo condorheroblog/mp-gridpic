@@ -4,7 +4,8 @@
 import type { CSSProperties } from "react";
 
 import type { ImageItem, StyleTheme } from "../../types";
-import { ImageCell } from "../canvas/ImageCell";
+import { distributeWaterfall, getColumnSpacing } from "../../lib/layoutUtils";
+import { ImageBlock } from "./ImageBlock";
 
 interface LayoutProps {
 	images: ImageItem[]
@@ -13,38 +14,41 @@ interface LayoutProps {
 }
 
 export function WaterfallLayout({ images, theme, columns = 2 }: LayoutProps) {
-	const buckets: ImageItem[][] = Array.from({ length: columns }, () => []);
-	const totals = Array.from<number>({ length: columns }).fill(0);
-	images.forEach((image) => {
-		let target = 0;
-		for (let i = 1; i < columns; i++) {
-			if (totals[i] < totals[target])
-				target = i;
-		}
-		buckets[target].push(image);
-		totals[target] += 1 / Math.max(image.ratio, 0.1);
-	});
+	if (images.length === 0)
+		return null;
+	const buckets = distributeWaterfall(images, columns);
+	const wrapperStyle: CSSProperties = {
+		fontSize: 0,
+		lineHeight: 0,
+	};
 	const columnStyle: CSSProperties = {
-		display: "flex",
-		flexDirection: "column",
-		flex: 1,
-		gap: `${theme.gap}px`,
+		display: "block",
+		width: "100%",
+		boxSizing: "border-box",
 	};
 	return (
-		<div style={{ display: "flex", flexDirection: "row", gap: `${theme.gap}px` }}>
+		<section style={wrapperStyle}>
 			{buckets.map((bucket, index) => (
-				// eslint-disable-next-line react/no-array-index-key
-				<div key={`col-${index}-${bucket[0]?.id ?? "empty"}`} style={columnStyle}>
-					{bucket.map(image => (
-						<ImageCell
-							key={image.id}
-							image={image}
-							theme={theme}
-							style={{ width: "100%", aspectRatio: `${image.ratio}` }}
-						/>
-					))}
-				</div>
+				<section
+					key={bucket.map(image => image.id).join("-") || "empty-column"}
+					style={{
+						display: "inline-block",
+						verticalAlign: "top",
+						width: `${(100 / columns).toFixed(4)}%`,
+						paddingLeft: `${getColumnSpacing(index, columns, theme.gap).left}px`,
+						paddingRight: `${getColumnSpacing(index, columns, theme.gap).right}px`,
+						boxSizing: "border-box",
+					}}
+				>
+					<section style={columnStyle}>
+						{bucket.map((image, itemIndex) => (
+							<section key={image.id} style={{ marginTop: itemIndex === 0 ? 0 : `${theme.gap}px` }}>
+								<ImageBlock image={image} theme={theme} />
+							</section>
+						))}
+					</section>
+				</section>
 			))}
-		</div>
+		</section>
 	);
 }

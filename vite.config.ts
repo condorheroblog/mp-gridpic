@@ -73,5 +73,16 @@ export default defineConfig({
 	server: {
 		port: 5173,
 		host: true,
+		// 开发期代理微信公众号接口,绕过浏览器 CORS 限制。
+		// 前端调用 /wx-api/article-bin/verify_article_structure 即可,
+		// Vite 会把请求转发到 https://mp.weixin.qq.com。
+		proxy: {
+			"/wx-api": {
+				target: "https://mp.weixin.qq.com",
+				changeOrigin: true,
+				secure: true,
+				rewrite: path => path.replace(/^\/wx-api/, ""),
+			},
+		},
 	},
 });

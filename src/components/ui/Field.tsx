@@ -65,3 +65,45 @@ export function TextInput({ value, onChange, placeholder, label, disabled, class
 		</label>
 	);
 }
+
+/**
+ * 颜色选择器 - 系统级 color input + 文本输入框,提供 hex 值的直接编辑能力。
+ * - color picker 用于快速取色
+ * - 文本框同步展示当前颜色值,支持手动输入任意 css 颜色(如 rgba / 命名色)
+ */
+interface ColorPickerProps {
+	value: string
+	onChange: (next: string) => void
+	label?: string
+	disabled?: boolean
+}
+
+export function ColorPicker({ value, onChange, label, disabled }: ColorPickerProps) {
+	// 文本输入框只接受 7 位 hex(#{rr}{gg}{bb});color input 默认输出该格式。
+	// 其他格式(rgba / 命名色)通过文本框直接编辑。
+	const isHex = /^#[0-9a-f]{6}$/i.test(value);
+	const hexValue = isHex ? value : "#000000";
+	return (
+		<div className="flex flex-col gap-1 text-xs text-zinc-500 dark:text-zinc-400">
+			{label !== undefined && <span>{label}</span>}
+			<div className="flex items-center gap-2">
+				{/* 系统级颜色选择器,提供可视化取色体验 */}
+				<input
+					type="color"
+					value={hexValue}
+					disabled={disabled}
+					onChange={event => onChange(event.currentTarget.value)}
+					className="h-7 w-7 cursor-pointer rounded-md border border-zinc-200 bg-white p-0 disabled:cursor-not-allowed disabled:opacity-50 dark:border-zinc-700 dark:bg-zinc-900"
+				/>
+				{/* 文本框同步当前颜色值,支持 hex / rgba / 命名色 等格式 */}
+				<input
+					type="text"
+					value={value}
+					disabled={disabled}
+					onChange={event => onChange(event.currentTarget.value)}
+					className="flex-1 rounded-md border border-zinc-200 bg-white px-2 py-1.5 font-mono text-sm text-zinc-800 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 disabled:opacity-50 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100"
+				/>
+			</div>
+		</div>
+	);
+}

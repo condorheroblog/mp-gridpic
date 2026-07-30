@@ -3,11 +3,11 @@
  * - 每个样式独立存在,与版式解耦。
  * - 提供"标准"和"卡片"两组基础预设,方便用户快速选择。
  */
-import type { StylePreset } from "../types";
+import type { ShadowPreset, StylePreset } from "../types";
 
 const BASE_CAPTION = {
-	captionFontSize: 13,
-	captionColor: "#52525b",
+	captionFontSize: 14,
+	captionColor: "#a0a0a0",
 };
 
 const BASE_CARD_LIGHT = {
@@ -24,6 +24,13 @@ const BASE_CARD_DARK = {
 	cardBackground: "#09090b",
 };
 
+/** 阴影预设 - 提供小、中、大三档,统一控制模糊/偏移/颜色 */
+export const SHADOW_PRESETS: Record<ShadowPreset, { blur: number, offsetY: number, color: string }> = {
+	small: { blur: 8, offsetY: 2, color: "rgba(15,23,42,0.10)" },
+	medium: { blur: 16, offsetY: 4, color: "rgba(15,23,42,0.18)" },
+	large: { blur: 32, offsetY: 8, color: "rgba(15,23,42,0.25)" },
+};
+
 export const STYLE_PRESETS: StylePreset[] = [
 	{
 		id: "style.standard",
@@ -34,14 +41,12 @@ export const STYLE_PRESETS: StylePreset[] = [
 			gap: 8,
 			borderRadius: 0,
 			shadow: false,
-			shadowBlur: 0,
-			shadowColor: "rgba(0,0,0,0)",
-			shadowOffsetY: 0,
+			shadowPreset: "medium",
 			scrollHeight: 240,
 			scrollItemWidth: 220,
 			...BASE_CARD_LIGHT,
 			...BASE_CAPTION,
-			captionPosition: "below",
+			captionPosition: "above",
 		},
 	},
 	{
@@ -53,14 +58,12 @@ export const STYLE_PRESETS: StylePreset[] = [
 			gap: 12,
 			borderRadius: 12,
 			shadow: true,
-			shadowBlur: 16,
-			shadowColor: "rgba(15,23,42,0.18)",
-			shadowOffsetY: 4,
+			shadowPreset: "medium",
 			scrollHeight: 260,
 			scrollItemWidth: 240,
 			...BASE_CARD_LIGHT,
 			...BASE_CAPTION,
-			captionPosition: "below",
+			captionPosition: "above",
 		},
 	},
 	{
@@ -72,14 +75,12 @@ export const STYLE_PRESETS: StylePreset[] = [
 			gap: 10,
 			borderRadius: 14,
 			shadow: true,
-			shadowBlur: 22,
-			shadowColor: "rgba(99,102,241,0.25)",
-			shadowOffsetY: 6,
+			shadowPreset: "large",
 			scrollHeight: 300,
 			scrollItemWidth: 260,
 			...BASE_CARD_LIGHT,
 			...BASE_CAPTION,
-			captionPosition: "below",
+			captionPosition: "above",
 		},
 	},
 ];

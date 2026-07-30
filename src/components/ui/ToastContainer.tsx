@@ -9,7 +9,7 @@ export function ToastContainer() {
 	const messages = useToastStore(state => state.messages);
 	const remove = useToastStore(state => state.remove);
 	return (
-		<div className="pointer-events-none fixed inset-x-0 bottom-4 z-50 flex flex-col items-center gap-2">
+		<div className="pointer-events-none fixed inset-x-0 top-16 z-50 flex flex-col items-center gap-2">
 			{messages.map(item => (
 				<button
 					key={item.id}

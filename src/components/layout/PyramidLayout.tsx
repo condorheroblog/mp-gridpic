@@ -4,7 +4,8 @@
 import type { CSSProperties } from "react";
 
 import type { ImageItem, StyleTheme } from "../../types";
-import { ImageCell } from "../canvas/ImageCell";
+import { getColumnSpacing } from "../../lib/layoutUtils";
+import { ImageBlock } from "./ImageBlock";
 
 interface LayoutProps {
 	images: ImageItem[]
@@ -15,21 +16,33 @@ export function PyramidLayout({ images, theme }: LayoutProps) {
 	const [a, b, c] = images;
 	if (!a || !b || !c)
 		return null;
-	const top: CSSProperties = { width: "100%", aspectRatio: `${a.ratio}` };
 	const bottom: CSSProperties = {
-		display: "flex",
-		flexDirection: "row",
-		gap: `${theme.gap}px`,
+		fontSize: 0,
+		lineHeight: 0,
 		marginTop: `${theme.gap}px`,
 	};
-	const half: CSSProperties = { flex: 1, aspectRatio: `${b.ratio}` };
+	const half = (index: number): CSSProperties => {
+		const spacing = getColumnSpacing(index, 2, theme.gap);
+		return {
+			display: "inline-block",
+			verticalAlign: "top",
+			width: "50%",
+			paddingLeft: `${spacing.left}px`,
+			paddingRight: `${spacing.right}px`,
+			boxSizing: "border-box",
+		};
+	};
 	return (
-		<div>
-			<ImageCell image={a} theme={theme} style={top} />
-			<div style={bottom}>
-				<ImageCell image={b} theme={theme} style={half} />
-				<ImageCell image={c} theme={theme} style={half} />
-			</div>
-		</div>
+		<section>
+			<ImageBlock image={a} theme={theme} />
+			<section style={bottom}>
+				<section style={half(0)}>
+					<ImageBlock image={b} theme={theme} />
+				</section>
+				<section style={half(1)}>
+					<ImageBlock image={c} theme={theme} />
+				</section>
+			</section>
+		</section>
 	);
 }

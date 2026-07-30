@@ -59,9 +59,10 @@ export function ImageCaption({ image, theme, position, centerAlign = true }: Ima
 		textAlign: centerAlign ? "center" : "left",
 		fontWeight: 500,
 		letterSpacing: "0.04em",
-		fontStyle: "italic",
-		fontFamily: "-apple-system, BlinkMacSystemFont, \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", \"Songti SC\", serif",
 	};
+	// 装饰短线原本用 span 套块级样式再放进 <p>,违反了 p 只能包含行内元素的规则。
+	// 这里把短线移到 <p> 外部,改为纯行内的 short line(下划线 + 颜色 + opacity),
+	// 既保留视觉装饰,又让 <p> 内只剩纯文本。
 	const decoratorStyle: CSSProperties = {
 		display: "block",
 		width: "24px",
@@ -71,10 +72,12 @@ export function ImageCaption({ image, theme, position, centerAlign = true }: Ima
 		opacity: 0.5,
 	};
 	return (
-		<p style={style} className="select-none break-words">
-			{resolved === "below" && <span style={decoratorStyle} aria-hidden="true" />}
-			{image.caption}
+		<>
 			{resolved === "above" && <span style={decoratorStyle} aria-hidden="true" />}
-		</p>
+			<p style={style} className="select-none break-words">
+				{image.caption}
+			</p>
+			{resolved === "below" && <span style={decoratorStyle} aria-hidden="true" />}
+		</>
 	);
 }

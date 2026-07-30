@@ -1,4 +1,4 @@
-import type { CaptionPosition, StyleTheme } from "../../types";
+import type { CaptionPosition, ShadowPreset, StyleTheme } from "../../types";
 
 /**
  * 样式面板 - 选择预设 + 自定义参数
@@ -9,10 +9,11 @@ import { useTranslation } from "react-i18next";
 import { STYLE_PRESETS } from "../../data/styles";
 import { useDocumentStore } from "../../stores/documentStore";
 import { Button } from "../ui/Button";
-import { NumberSlider, TextInput } from "../ui/Field";
+import { ColorPicker, NumberSlider } from "../ui/Field";
 import { Switch } from "../ui/Switch";
 
 const CAPTION_POSITIONS: CaptionPosition[] = ["above", "below", "hidden"];
+const SHADOW_PRESET_OPTIONS: ShadowPreset[] = ["small", "medium", "large"];
 
 export function StylePanel() {
 	const { t } = useTranslation();
@@ -89,37 +90,41 @@ export function StylePanel() {
 					onChange={n => handleUpdate({ scrollItemWidth: n })}
 				/>
 			</div>
-			{/* 阴影 */}
+			{/* 阴影 - 开关 + 三档预设,统一控制模糊/偏移/颜色,不再开放自定义参数 */}
 			<div className="flex flex-col gap-2 rounded-lg border border-zinc-200 p-2 dark:border-zinc-800">
 				<Switch
 					label={t("style.shadow")}
 					checked={theme.shadow}
 					onChange={shadow => handleUpdate({ shadow })}
 				/>
-				<NumberSlider
-					label={t("style.shadowBlur")}
-					suffix="px"
-					min={0}
-					max={60}
-					value={theme.shadowBlur}
-					onChange={n => handleUpdate({ shadowBlur: n })}
-					disabled={!theme.shadow}
-				/>
-				<NumberSlider
-					label={t("style.shadowOffsetY")}
-					suffix="px"
-					min={-20}
-					max={40}
-					value={theme.shadowOffsetY}
-					onChange={n => handleUpdate({ shadowOffsetY: n })}
-					disabled={!theme.shadow}
-				/>
-				<TextInput
-					label={t("style.shadowColor")}
-					value={theme.shadowColor}
-					onChange={shadowColor => handleUpdate({ shadowColor })}
-					disabled={!theme.shadow}
-				/>
+				<div>
+					<span className="mb-1 block text-xs text-zinc-500 dark:text-zinc-400">
+						{t("style.shadowPresetLabel")}
+					</span>
+					<div className="flex gap-1 rounded-lg bg-zinc-100 p-1 text-xs dark:bg-zinc-800/60">
+						{SHADOW_PRESET_OPTIONS.map((preset) => {
+							const selected = theme.shadow && theme.shadowPreset === preset;
+							return (
+								<button
+									key={preset}
+									type="button"
+									onClick={() => handleUpdate({ shadowPreset: preset })}
+									disabled={!theme.shadow}
+									aria-pressed={selected}
+									className={clsx(
+										"flex-1 rounded-md px-2 py-1 text-center transition-colors",
+										selected
+											? "bg-white text-indigo-600 shadow-sm dark:bg-zinc-900 dark:text-indigo-300"
+											: "text-zinc-600 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white",
+										!theme.shadow && "cursor-not-allowed opacity-50",
+									)}
+								>
+									{t(`style.shadowPreset.${preset}`)}
+								</button>
+							);
+						})}
+					</div>
+				</div>
 			</div>
 			{/* 预览卡片样式 - 导出时会一并写入剪贴板 */}
 			<div className="flex flex-col gap-2 rounded-lg border border-zinc-200 p-2 dark:border-zinc-800">
@@ -142,12 +147,12 @@ export function StylePanel() {
 					value={theme.cardRadius}
 					onChange={n => handleUpdate({ cardRadius: n })}
 				/>
-				<TextInput
+				<ColorPicker
 					label={t("style.cardBorderColor")}
 					value={theme.cardBorderColor}
 					onChange={cardBorderColor => handleUpdate({ cardBorderColor })}
 				/>
-				<TextInput
+				<ColorPicker
 					label={t("style.cardBackground")}
 					value={theme.cardBackground}
 					onChange={cardBackground => handleUpdate({ cardBackground })}
@@ -166,7 +171,7 @@ export function StylePanel() {
 					value={theme.captionFontSize}
 					onChange={n => handleUpdate({ captionFontSize: n })}
 				/>
-				<TextInput
+				<ColorPicker
 					label={t("style.captionColor")}
 					value={theme.captionColor}
 					onChange={captionColor => handleUpdate({ captionColor })}
