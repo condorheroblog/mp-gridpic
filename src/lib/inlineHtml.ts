@@ -234,9 +234,12 @@ function hScrollGalleryHtml(images: ImageItem[], theme: StyleTheme): string {
 		boxSizing: "border-box",
 	});
 	// 滚动视口:overflow-x:auto + 左右 padding 10px。
+	// 同时显式声明 max-width:100% 兜底,避免被公众号编辑器自带样式里的 max-width 限制,
+	// 配合 !important 提高优先级,确保预览/复制后横向滚动行为一致。
 	const viewportStyle = toStyleText({
 		display: "inline-block",
 		width: "100%",
+		maxWidth: "100% !important",
 		verticalAlign: "top",
 		overflowX: "auto",
 		overflowY: "hidden",
@@ -245,10 +248,13 @@ function hScrollGalleryHtml(images: ImageItem[], theme: StyleTheme): string {
 		boxSizing: "border-box",
 	});
 	// 内容容器:宽度 = 图片张数 × 单图占比(视口百分比),根据图片个数自动分配。
+	// 显式声明 max-width:none !important 抵消公众号编辑器对祖先元素施加的 max-width 限制,
+	// 保证内容容器能按 N × itemRatio 正常撑开,触发横向滚动。
 	const itemRatio = theme.itemRatio;
 	const scrollerStyle = toStyleText({
 		overflow: "hidden",
 		width: `${(images.length * itemRatio * 100).toFixed(4)}%`,
+		maxWidth: "none !important",
 		boxSizing: "border-box",
 	});
 	// 单张图占内容容器的 1/N,折算到视口就是 itemRatio:

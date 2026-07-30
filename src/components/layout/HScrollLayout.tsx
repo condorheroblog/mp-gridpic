@@ -38,9 +38,12 @@ const BLOCK_GAP = 10;
 
 export function HScrollLayout({ images, theme }: LayoutProps) {
 	// 滚动视口:overflow-x:auto + 左右 padding 10px。
+	// maxWidth 显式声明 100% 并加 !important,避免被公众号编辑器自带样式里的 max-width 限制,
+	// 保持预览/复制行为一致。
 	const viewportStyle: CSSProperties = {
 		display: "inline-block",
 		width: "100%",
+		maxWidth: "100% !important",
 		verticalAlign: "top",
 		overflowX: "auto",
 		overflowY: "hidden",
@@ -51,10 +54,13 @@ export function HScrollLayout({ images, theme }: LayoutProps) {
 	// 内容容器:宽度 = 图片张数 × 单图占比(视口百分比),根据图片个数自动分配,
 	// 不再使用硬编码 300% / rotate hack,新结构依赖明确的百分比宽度让横向滚动持续生效。
 	// 单张图占视口的 theme.itemRatio(默认 1),所以内容容器宽度 = N × itemRatio。
+	// maxWidth 显式声明 none 并加 !important,抵消公众号编辑器对祖先元素施加的 max-width 限制,
+	// 保证内容容器能按 N × itemRatio 正常撑开,触发横向滚动。
 	const itemRatio = theme.itemRatio;
 	const scrollerStyle: CSSProperties = {
 		overflow: "hidden",
 		width: `${(images.length * itemRatio * 100).toFixed(4)}%`,
+		maxWidth: "none !important",
 		boxSizing: "border-box",
 	};
 	// 单张图占内容容器的 1/N,折算到视口就是 itemRatio:
