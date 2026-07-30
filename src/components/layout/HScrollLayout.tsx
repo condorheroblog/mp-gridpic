@@ -34,7 +34,7 @@ interface LayoutProps {
 const BLOCK_GAP = 10;
 
 export function HScrollLayout({ images, theme }: LayoutProps) {
-	// 卡片外壳:边框 + 圆角 + overflow:hidden + 上下 10px padding,
+	// 卡片外壳:边框 + 圆角 + overflow:hidden + padding 由 theme.cardPadding 控制,
 	// 补齐整体上下边距,确保提示文案与图片节奏对称。
 	const cardStyle: CSSProperties = {
 		display: "inline-block",
@@ -47,7 +47,8 @@ export function HScrollLayout({ images, theme }: LayoutProps) {
 		borderColor: theme.cardBorderColor,
 		borderRadius: `${theme.cardRadius}px`,
 		overflow: "hidden",
-		padding: `${BLOCK_GAP}px 0`,
+		padding: `${theme.cardPadding}px`,
+		background: theme.cardBackground,
 		boxSizing: "border-box",
 	};
 	// 滚动视口:overflow-x:auto + 左右 padding 10px。
@@ -58,7 +59,7 @@ export function HScrollLayout({ images, theme }: LayoutProps) {
 		overflowX: "auto",
 		overflowY: "hidden",
 		margin: 0,
-		padding: `0 ${BLOCK_GAP}px`,
+		// padding: `0 ${BLOCK_GAP}px`,
 		boxSizing: "border-box",
 	};
 	// 内容容器:宽度 = 图片张数 × 单图占比(视口百分比),根据图片个数自动分配,

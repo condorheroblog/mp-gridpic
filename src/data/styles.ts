@@ -58,7 +58,7 @@ export const STYLE_PRESETS: StylePreset[] = [
 		nameKey: "style.card",
 		isBuiltIn: true,
 		theme: {
-			containerPadding: 8,
+			containerPadding: 0,
 			gap: 12,
 			borderRadius: 12,
 			shadow: true,

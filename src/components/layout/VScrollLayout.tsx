@@ -25,9 +25,9 @@ interface LayoutProps {
 const BLOCK_GAP = 10;
 
 export function VScrollLayout({ images, theme, dark: _dark }: LayoutProps) {
-	// 卡片外壳:边框 + 圆角 + overflow:hidden + 上下左右 10px padding,
+	// 卡片外壳:边框 + 圆角 + overflow:hidden + padding 由 theme.cardPadding 控制,
 	// 与 HScrollLayout 的卡片外壳结构对齐,让用户在预览区直观看到复制后会带边框。
-	// padding 四边 10px 配合下方滚动容器的 padding:0 10px,保证左右总间距 20px(与修改前一致)。
+	// padding 取自样式主题;滚动容器仍保留左右 10px,保证图片与卡片边缘留有视觉间距。
 	const cardStyle: CSSProperties = {
 		display: "inline-block",
 		width: "100%",
@@ -39,7 +39,8 @@ export function VScrollLayout({ images, theme, dark: _dark }: LayoutProps) {
 		borderColor: theme.cardBorderColor,
 		borderRadius: `${theme.cardRadius}px`,
 		overflow: "hidden",
-		padding: `${BLOCK_GAP}px`,
+		padding: `${theme.cardPadding}px`,
+		background: theme.cardBackground,
 		boxSizing: "border-box",
 	};
 	// 滚动容器:固定高度 + overflow-y:auto,只负责图片的滚动;
