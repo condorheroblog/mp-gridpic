@@ -14,9 +14,8 @@ export function Canvas() {
 	const images = useDocumentStore(state => state.images);
 	return (
 		<section className="flex flex-col gap-3">
-			<header className="flex items-center justify-between">
-				<span className="text-xs text-zinc-400 dark:text-zinc-500">
-					678px ·
+			<header className="flex items-center">
+				<span className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
 					{t(`layout.${layout.kind}`)}
 				</span>
 			</header>
