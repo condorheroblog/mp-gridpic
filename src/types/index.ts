@@ -6,9 +6,6 @@
 /** 图片说明的位置:位于图片上方 / 位于图片下方 / 不显示 */
 export type CaptionPosition = "above" | "below" | "hidden";
 
-/** 阴影预设 - 提供小、中、大三档,统一控制模糊/偏移/颜色 */
-export type ShadowPreset = "small" | "medium" | "large";
-
 export interface ImageItem {
 	id: string
 	/** 远端图片 URL,默认使用 https://picsum.photos 占位图 */
@@ -51,10 +48,6 @@ export interface StyleTheme {
 	gap: number
 	/** 图片圆角,单位 px */
 	borderRadius: number
-	/** 是否开启阴影效果 */
-	shadow: boolean
-	/** 阴影预设 - 小、中、大三档,实际渲染时根据该值计算模糊/偏移/颜色 */
-	shadowPreset: ShadowPreset
 	/** 横向/纵向画廊的滑动区域高度,仅对 hscroll/vscroll 生效 */
 	scrollHeight: number
 	/**

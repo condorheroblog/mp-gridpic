@@ -3,7 +3,6 @@ import type { CaptionPosition, ImageItem, LayoutKind, StyleTheme } from "../type
  * 公众号可粘贴 HTML 生成器
  *
  */
-import { SHADOW_PRESETS } from "../data/styles";
 import { chunkItems, distributeWaterfall, getColumnSpacing } from "./layoutUtils";
 
 const SAFE_HOSTS_PATTERN = /^https:\/\//i;
@@ -47,19 +46,8 @@ function toStyleText(style: Record<string, string | number | undefined>): string
 }
 
 /**
- * 把 StyleTheme 中的阴影计算成 box-shadow 字符串;没开启阴影则返回 undefined。
- * 阴影落在图片右下角,水平与垂直偏移相等,形成 45° 方向的投射效果。
- */
-function shadowValue(theme: StyleTheme): string | undefined {
-	if (!theme.shadow)
-		return undefined;
-	const preset = SHADOW_PRESETS[theme.shadowPreset];
-	return `${preset.offsetX}px ${preset.offsetY}px ${preset.blur}px ${preset.color}`;
-}
-
-/**
- * 单张图片 - 公众号会清洗 img 上的圆角和阴影,
- * 因此用一个 section 包裹图片,圆角 / 阴影 / overflow 都套在该 section 上。
+ * 单张图片 - 公众号会清洗 img 上的圆角,
+ * 因此用一个 section 包裹图片,圆角 / overflow 都套在该 section 上。
  *
  * 公众号静态规范要点:
  *  - 不写 font-family(沿用默认字体栈,规范 §4)。
@@ -71,7 +59,6 @@ function imageTag(image: ImageItem, theme: StyleTheme): string {
 		display: "block",
 		width: "100%",
 		borderRadius: `${theme.borderRadius}px`,
-		boxShadow: shadowValue(theme),
 		overflow: "hidden",
 		background: theme.cardBackground,
 		boxSizing: "border-box",

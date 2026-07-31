@@ -1,4 +1,4 @@
-import type { CaptionPosition, ImageItem, LayoutPreset, ShadowPreset, StylePreset, StyleTheme } from "../types";
+import type { CaptionPosition, ImageItem, LayoutPreset, StylePreset, StyleTheme } from "../types";
 /**
  * 文档 Store - 当前画布的版式、样式、图片列表与所有变更操作
  * 选用 Zustand:轻量、API 直接,与 React 19 兼容良好
@@ -15,20 +15,14 @@ function migrateTheme(theme: Partial<StyleTheme> | null | undefined): StyleTheme
 	if (!theme)
 		return null;
 	const fallback = getStylePreset("style.standard").theme;
-	// 旧版本含 shadowBlur / shadowColor / shadowOffsetY 字段,新版本合并为 shadowPreset,
-	// 因此显式剔除旧字段避免污染。scrollItemWidth 已在重构中替换为 itemRatio,同样需要剔除。
+	// scrollItemWidth 已在重构中替换为 itemRatio,显式剔除避免污染。
 	const cleaned: Partial<StyleTheme> = { ...theme };
-	delete (cleaned as Record<string, unknown>).shadowBlur;
-	delete (cleaned as Record<string, unknown>).shadowColor;
-	delete (cleaned as Record<string, unknown>).shadowOffsetY;
 	delete (cleaned as Record<string, unknown>).scrollItemWidth;
 	return {
 		...fallback,
 		...cleaned,
 		// 旧版本没有 captionPosition,显式补全默认值。
 		captionPosition: (theme.captionPosition as CaptionPosition | undefined) ?? fallback.captionPosition,
-		// 旧版本没有 shadowPreset,统一补全默认中档。
-		shadowPreset: (theme.shadowPreset as ShadowPreset | undefined) ?? fallback.shadowPreset,
 	};
 }
 

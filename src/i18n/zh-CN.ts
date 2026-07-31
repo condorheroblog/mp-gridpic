@@ -69,13 +69,6 @@ export default {
 		containerPadding: "容器外边距",
 		gap: "图片间距",
 		borderRadius: "图片圆角",
-		shadow: "图片阴影",
-		shadowPresetLabel: "阴影强度",
-		shadowPreset: {
-			small: "小",
-			medium: "中",
-			large: "大",
-		},
 		scrollHeight: "滑动区高度",
 		itemRatio: "单图占比",
 		cardSection: "外层卡片样式(随复制导出)",

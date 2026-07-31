@@ -69,13 +69,6 @@ export default {
 		containerPadding: "Container margin",
 		gap: "Gap",
 		borderRadius: "Radius",
-		shadow: "Shadow",
-		shadowPresetLabel: "Shadow strength",
-		shadowPreset: {
-			small: "Small",
-			medium: "Medium",
-			large: "Large",
-		},
 		scrollHeight: "Scroll height",
 		itemRatio: "Item ratio",
 		cardSection: "Outer card (copied with export)",
