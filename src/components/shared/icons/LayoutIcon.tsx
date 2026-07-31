@@ -7,7 +7,7 @@
  * - 在 16px ~ 20px 的小尺寸下仍能看清结构
  * - 每个图标都对应真实版式,而不是抽象装饰
  */
-import type { LayoutKind } from "../../types";
+import type { LayoutKind } from "../../../types";
 
 interface IconProps {
 	className?: string
@@ -104,23 +104,26 @@ function Grid3Icon({ className }: IconProps) {
 
 // 4 列网格 - 只画 4x4 中的部分(完整 16 太密)
 function Grid4Icon({ className }: IconProps) {
+	const cells = Array.from({ length: 16 }, (_, idx) => {
+		const row = Math.floor(idx / 4);
+		const col = idx % 4;
+		return { idx, row, col };
+	});
 	return (
 		<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-hidden>
-			{Array.from({ length: 4 }).map((_, row) => (
-				Array.from({ length: 4 }).map((__, col) => (
-					<rect
-						key={`${row}-${col}`}
-						x={3 + col * 4.625}
-						y={3 + row * 4.625}
-						width="4.25"
-						height="4.25"
-						rx="0.75"
-						fill="currentColor"
-						fillOpacity={(row + col) % 2 ? 0.15 : 0.05}
-						stroke="currentColor"
-						strokeWidth="1"
-					/>
-				))
+			{cells.map(({ idx, row, col }) => (
+				<rect
+					key={`g4-${idx}`}
+					x={3 + col * 4.625}
+					y={3 + row * 4.625}
+					width="4.25"
+					height="4.25"
+					rx="0.75"
+					fill="currentColor"
+					fillOpacity={(row + col) % 2 ? 0.15 : 0.05}
+					stroke="currentColor"
+					strokeWidth="1"
+				/>
 			))}
 		</svg>
 	);

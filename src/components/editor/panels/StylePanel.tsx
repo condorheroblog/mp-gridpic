@@ -1,4 +1,4 @@
-import type { CaptionPosition, StyleTheme } from "../../types";
+import type { CaptionPosition, StyleTheme } from "../../../types";
 
 /**
  * 样式面板 - 选择预设 + 自定义参数
@@ -6,10 +6,10 @@ import type { CaptionPosition, StyleTheme } from "../../types";
  */
 import clsx from "clsx";
 import { useTranslation } from "react-i18next";
-import { STYLE_PRESETS } from "../../data/styles";
-import { useDocumentStore } from "../../stores/documentStore";
-import { Button } from "../ui/Button";
-import { ColorPicker, NumberSlider } from "../ui/Field";
+import { STYLE_PRESETS } from "../../../data/styles";
+import { useDocumentStore } from "../../../stores/documentStore";
+import { Button } from "../../shared/Button";
+import { ColorPicker, NumberSlider } from "../../shared/Field";
 
 const CAPTION_POSITIONS: CaptionPosition[] = ["above", "below", "hidden"];
 

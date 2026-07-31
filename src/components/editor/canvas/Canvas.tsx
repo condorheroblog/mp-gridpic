@@ -4,7 +4,7 @@
 import clsx from "clsx";
 import { useTranslation } from "react-i18next";
 
-import { useDocumentStore } from "../../stores/documentStore";
+import { useDocumentStore } from "../../../stores/documentStore";
 import { LayoutRenderer } from "../layout/LayoutRenderer";
 
 export function Canvas() {

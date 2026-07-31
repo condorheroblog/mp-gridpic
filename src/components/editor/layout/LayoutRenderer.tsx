@@ -10,7 +10,7 @@
  */
 import type { CSSProperties } from "react";
 
-import type { ImageItem, LayoutKind, StyleTheme } from "../../types";
+import type { ImageItem, LayoutKind, StyleTheme } from "../../../types";
 import { DoubleLayout } from "./DoubleLayout";
 import { GridLayout } from "./GridLayout";
 import { HScrollLayout } from "./HScrollLayout";

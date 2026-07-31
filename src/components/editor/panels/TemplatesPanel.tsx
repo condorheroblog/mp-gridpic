@@ -4,13 +4,13 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { getLayoutPreset } from "../../data/layouts";
-import { getStylePreset } from "../../data/styles";
-import { useDocumentStore } from "../../stores/documentStore";
-import { useTemplateStore } from "../../stores/templateStore";
-import { useToastStore } from "../../stores/toastStore";
-import { Button } from "../ui/Button";
-import { TextInput } from "../ui/Field";
+import { getLayoutPreset } from "../../../data/layouts";
+import { getStylePreset } from "../../../data/styles";
+import { useDocumentStore } from "../../../stores/documentStore";
+import { useTemplateStore } from "../../../stores/templateStore";
+import { useToastStore } from "../../../stores/toastStore";
+import { Button } from "../../shared/Button";
+import { TextInput } from "../../shared/Field";
 
 export function TemplatesPanel() {
 	const { t } = useTranslation();

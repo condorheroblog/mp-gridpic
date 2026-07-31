@@ -2,7 +2,7 @@
  * 图片面板 - 增删改、@dnd-kit 拖拽排序、图片说明
  */
 import type { DragEndEvent } from "@dnd-kit/core";
-import type { ImageItem } from "../../types";
+import type { ImageItem } from "../../../types";
 import {
 	DndContext,
 	KeyboardSensor,
@@ -21,10 +21,10 @@ import { CSS } from "@dnd-kit/utilities";
 import clsx from "clsx";
 
 import { useTranslation } from "react-i18next";
-import { useDocumentStore } from "../../stores/documentStore";
-import { useToastStore } from "../../stores/toastStore";
-import { Button } from "../ui/Button";
-import { TextInput } from "../ui/Field";
+import { useDocumentStore } from "../../../stores/documentStore";
+import { useToastStore } from "../../../stores/toastStore";
+import { Button } from "../../shared/Button";
+import { TextInput } from "../../shared/Field";
 
 export function ImagesPanel() {
 	const { t } = useTranslation();

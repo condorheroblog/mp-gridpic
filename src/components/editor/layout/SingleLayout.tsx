@@ -1,7 +1,7 @@
 /**
  * 单图版式
  */
-import type { ImageItem, StyleTheme } from "../../types";
+import type { ImageItem, StyleTheme } from "../../../types";
 import { ImageBlock } from "./ImageBlock";
 
 interface LayoutProps {

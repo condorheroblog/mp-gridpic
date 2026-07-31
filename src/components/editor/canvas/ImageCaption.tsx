@@ -4,7 +4,7 @@
  * 组件的 position 参数表示"这个槽位是上方还是下方",最终是否渲染取决于主题设置。
  */
 import type { CSSProperties } from "react";
-import type { CaptionPosition, ImageItem, StyleTheme } from "../../types";
+import type { CaptionPosition, ImageItem, StyleTheme } from "../../../types";
 
 interface ImageCaptionProps {
 	image: ImageItem

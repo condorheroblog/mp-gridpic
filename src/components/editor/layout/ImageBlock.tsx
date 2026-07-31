@@ -4,7 +4,7 @@
  */
 import type { CSSProperties } from "react";
 
-import type { ImageItem, StyleTheme } from "../../types";
+import type { ImageItem, StyleTheme } from "../../../types";
 import { ImageCaption } from "../canvas/ImageCaption";
 import { ImageCell } from "../canvas/ImageCell";
 

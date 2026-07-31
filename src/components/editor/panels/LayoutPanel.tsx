@@ -4,9 +4,9 @@
 import clsx from "clsx";
 
 import { useTranslation } from "react-i18next";
-import { LAYOUT_PRESETS } from "../../data/layouts";
-import { useDocumentStore } from "../../stores/documentStore";
-import { LayoutIcon } from "../icons/LayoutIcon";
+import { LAYOUT_PRESETS } from "../../../data/layouts";
+import { useDocumentStore } from "../../../stores/documentStore";
+import { LayoutIcon } from "../../shared/icons/LayoutIcon";
 
 export function LayoutPanel() {
 	const { t } = useTranslation();

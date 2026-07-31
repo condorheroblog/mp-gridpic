@@ -10,6 +10,52 @@ export default {
 		copyFail: "复制失败,请检查浏览器剪贴板权限",
 		reset: "重置",
 	},
+	home: {
+		hero: {
+			badge: "公众号 · 纯图片版式",
+			title: "公众号图片版式排版工具",
+			tagline: "10 种内置版式 · 3 套精选样式 · 一键粘贴到公众号编辑器",
+			ctaPrimary: "打开编辑器",
+			ctaSecondary: "在 GitHub 查看",
+			ctaAnchor: "查看效果",
+		},
+		showcase: {
+			heading: "效果展示",
+			subheading: "全部 10 种内置版式均可在编辑器中切换,以下为静态示意。",
+			hscroll: { title: "横向滑动画廊", desc: "公众号正文内左右滑动浏览" },
+			vscroll: { title: "固定高度垂直滚动", desc: "在固定高度区域内上下滚动浏览" },
+			single: { title: "单图大图", desc: "突出主图,适合封面与重点展示" },
+			doubleRow: { title: "双图横排", desc: "左右对比,适合多角度说明" },
+			doubleCol: { title: "双图竖排", desc: "上下对比,适合多角度说明" },
+			triplePyramid: { title: "品字三图", desc: "上方大图 + 下方两张,层次分明" },
+			grid2: { title: "二宫格", desc: "整齐排布,适合 2-4 张图" },
+			grid3: { title: "三宫格 / 九宫格", desc: "整齐排布,适合 3-9 张图" },
+			grid4: { title: "四宫格 / 十六宫格", desc: "整齐排布,适合 4-16 张图" },
+			waterfall: { title: "双列瀑布流", desc: "两列交替,适合图片数较多的场景" },
+			hint: {
+				hscroll: "左右滑动查看",
+				vscroll: "上下滑动查看",
+			},
+		},
+		features: {
+			heading: "为什么选 mp-gridpic",
+			subheading: "面向公众号编辑场景,从版式、样式到复制粘贴,每一步都为最终呈现而设计。",
+			f1: { title: "10 种内置版式", desc: "单图 / 双图 / 品字 / 多宫格 / 瀑布流 / 横滚 / 纵滚齐全" },
+			f2: { title: "版式与样式解耦", desc: "任意版式叠加任意样式,自由组合" },
+			f3: { title: "拖拽即排序", desc: "@dnd-kit 拖拽,移动端同样可用" },
+			f4: { title: "导出微信友好", desc: "全内联样式 + 白名单标签,粘贴即生效" },
+		},
+		cta: {
+			title: "开始制作你的第一张图",
+			desc: "无需注册,所有数据保存在本地浏览器",
+			button: "立即开始",
+		},
+		footer: {
+			copyright: "© 2026 Condor Hero · MIT License",
+			repo: "GitHub",
+			editor: "打开编辑器",
+		},
+	},
 	nav: {
 		layout: "版式",
 		images: "图片",
@@ -19,6 +65,8 @@ export default {
 		theme: "主题",
 		themeLight: "亮色",
 		themeDark: "暗色",
+		features: "特性",
+		showcase: "展示",
 	},
 	layout: {
 		"single": "单图",
@@ -94,5 +142,6 @@ export default {
 	common: {
 		confirm: "确定",
 		cancel: "取消",
+		backHome: "首页",
 	},
 } as const;

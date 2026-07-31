@@ -3,8 +3,8 @@
  */
 import type { CSSProperties } from "react";
 
-import type { ImageItem, StyleTheme } from "../../types";
-import { chunkItems, getColumnSpacing } from "../../lib/layoutUtils";
+import type { ImageItem, StyleTheme } from "../../../types";
+import { chunkItems, getColumnSpacing } from "../../../lib/layoutUtils";
 import { ImageBlock } from "./ImageBlock";
 
 interface LayoutProps {

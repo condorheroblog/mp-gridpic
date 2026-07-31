@@ -29,6 +29,9 @@ void i18n
  */
 i18n.on("languageChanged", (lng) => {
 	document.documentElement.lang = lng;
+	// 切换语言时同步 <title>,提升浏览器历史/书签的可读性
+	if (typeof document !== "undefined")
+		document.title = i18n.t("app.title", { defaultValue: "mp-gridpic" });
 });
 
 export default i18n;

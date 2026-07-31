@@ -10,6 +10,52 @@ export default {
 		copyFail: "Copy failed. Check clipboard permission.",
 		reset: "Reset",
 	},
+	home: {
+		hero: {
+			badge: "WeChat · Image-only Layout",
+			title: "WeChat image layout studio",
+			tagline: "10 layouts · 3 curated styles · paste straight into WeChat editor",
+			ctaPrimary: "Open editor",
+			ctaSecondary: "View on GitHub",
+			ctaAnchor: "See in action",
+		},
+		showcase: {
+			heading: "Layout showcase",
+			subheading: "All 10 layouts are available in the editor. Previews below are static placeholders.",
+			hscroll: { title: "Horizontal scroll gallery", desc: "Swipe horizontally inside the WeChat article." },
+			vscroll: { title: "Fixed-height vertical scroll", desc: "Vertical scrolling within a fixed-height area." },
+			single: { title: "Single hero", desc: "Highlight a single image for covers and feature shots." },
+			doubleRow: { title: "Two-up row", desc: "Side-by-side comparison for two angles." },
+			doubleCol: { title: "Two-up column", desc: "Stacked comparison for two angles." },
+			triplePyramid: { title: "Pyramid triple", desc: "One large image over two smaller ones." },
+			grid2: { title: "2×2 grid", desc: "Neat alignment for 2–4 images." },
+			grid3: { title: "3-column grid (up to 3×3)", desc: "Neat alignment for 3–9 images." },
+			grid4: { title: "4-column grid (up to 4×4)", desc: "Neat alignment for 4–16 images." },
+			waterfall: { title: "Two-column waterfall", desc: "Alternating columns for long lists." },
+			hint: {
+				hscroll: "Swipe horizontally",
+				vscroll: "Swipe vertically",
+			},
+		},
+		features: {
+			heading: "Why mp-gridpic",
+			subheading: "Tailored for WeChat editing — from layout to clipboard.",
+			f1: { title: "10 built-in layouts", desc: "Single, double, pyramid, grids, waterfall, h-scroll, v-scroll" },
+			f2: { title: "Layout & style decoupled", desc: "Mix any layout with any style" },
+			f3: { title: "Drag to reorder", desc: "@dnd-kit powered, works on mobile" },
+			f4: { title: "WeChat-friendly export", desc: "Inline styles and whitelist tags — paste anywhere" },
+		},
+		cta: {
+			title: "Make your first image",
+			desc: "No signup. All data stays in your browser.",
+			button: "Get started",
+		},
+		footer: {
+			copyright: "© 2026 Condor Hero · MIT License",
+			repo: "GitHub",
+			editor: "Open editor",
+		},
+	},
 	nav: {
 		layout: "Layout",
 		images: "Images",
@@ -19,6 +65,8 @@ export default {
 		theme: "Theme",
 		themeLight: "Light",
 		themeDark: "Dark",
+		features: "Features",
+		showcase: "Showcase",
 	},
 	layout: {
 		"single": "Single",
@@ -94,5 +142,6 @@ export default {
 	common: {
 		confirm: "OK",
 		cancel: "Cancel",
+		backHome: "Home",
 	},
 } as const;

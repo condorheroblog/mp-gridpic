@@ -1,5 +1,5 @@
 import type { CSSProperties, ImgHTMLAttributes } from "react";
-import type { ImageItem, StyleTheme } from "../../types";
+import type { ImageItem, StyleTheme } from "../../../types";
 
 /**
  * 图片渲染原子 - 渲染单张图片,统一应用样式(圆角 / 间距)
