@@ -17,8 +17,6 @@ export interface ImageItem {
 	alt: string
 	/** 图片说明文字,会显示在预览区域,并可被复制到公众号 */
 	caption?: string
-	/** 宽高比,默认 1(正方形),瀑布流等布局会使用 */
-	ratio: number
 }
 
 /**
@@ -27,7 +25,7 @@ export interface ImageItem {
  * - double-row / double-col: 双图(横向 / 纵向两种变形)
  * - triple-pyramid: 品字(三图)
  * - grid-2 / grid-3 / grid-4: 网格
- * - waterfall: 瀑布流(多列,按 ratio 分配高度)
+ * - waterfall: 瀑布流(多列,按顺序轮流分配)
  * - hscroll: 横向滑动画廊
  * - vscroll: 固定区域垂直滚动画廊
  */

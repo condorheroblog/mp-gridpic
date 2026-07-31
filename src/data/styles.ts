@@ -43,7 +43,7 @@ export const STYLE_PRESETS: StylePreset[] = [
 		theme: {
 			containerPadding: 0,
 			gap: 16,
-			borderRadius: 0,
+			borderRadius: 6,
 			shadow: false,
 			shadowPreset: "medium",
 			scrollHeight: 400,

@@ -18,7 +18,7 @@ export function SingleLayout({ images, theme }: LayoutProps) {
 			<ImageBlock
 				image={first}
 				theme={theme}
-				imageStyle={{ width: "100%", aspectRatio: `${first.ratio}` }}
+				imageStyle={{ width: "100%" }}
 			/>
 		</section>
 	);

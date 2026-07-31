@@ -61,9 +61,9 @@ interface DocumentStore {
 const initialLayout = LAYOUT_PRESETS[0];
 const initialStyle = STYLE_PRESETS[0];
 const initialImages: ImageItem[] = [
-	createImageItem({ id: "img-init-1", alt: "demo 1", ratio: 4 / 3 }),
-	createImageItem({ id: "img-init-2", alt: "demo 2", ratio: 4 / 3 }),
-	createImageItem({ id: "img-init-3", alt: "demo 3", ratio: 4 / 3 }),
+	createImageItem({ id: "img-init-1", alt: "demo 1" }),
+	createImageItem({ id: "img-init-2", alt: "demo 2" }),
+	createImageItem({ id: "img-init-3", alt: "demo 3" }),
 ];
 
 function clampToLayoutRange(images: ImageItem[], layout: LayoutPreset): ImageItem[] {

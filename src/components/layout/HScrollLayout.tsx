@@ -77,8 +77,9 @@ export function HScrollLayout({ images, theme }: LayoutProps) {
 		paddingRight: `${halfGap}px`,
 		boxSizing: "border-box",
 	});
-	// 滑动提示文案:与 VScrollLayout 一致,只有 margin-top 由卡片底部 padding 接管下边距,
-	// 保证说明 ↔ 图片 ↔ 提示 三者之间均为 10px 节奏。
+	// 滑动提示文案:放在滚动视口外部,与 VScrollLayout 保持一致,
+	// 这样横向滑动图片时提示文案不会被一起滚走,始终固定在卡片底部可见。
+	// margin-top = BLOCK_GAP 保证图片 ↔ 提示 节奏;下边距由卡片外壳 padding 接管。
 	const captionStyle: CSSProperties = {
 		textAlign: "center",
 		fontSize: `${theme.captionFontSize}px`,
@@ -87,25 +88,23 @@ export function HScrollLayout({ images, theme }: LayoutProps) {
 		// 注意:不在文本容器上设置 line-height: 0(违反公众号静态规范 §2.3)。
 		lineHeight: 1.6,
 		boxSizing: "border-box",
-		// 提示文案固定在卡片底部,确保滚动区域下方始终可见。
-		position: "sticky",
-		bottom: "0",
-		display: "block",
-		background: "transparent",
 	};
 	return (
-		<section style={viewportStyle}>
-			<section style={scrollerStyle}>
-				{images.map(image => (
-					<section key={image.id} style={itemStyle()}>
-						<ImageBlock image={image} theme={theme} />
-					</section>
-				))}
+		<>
+			{/* 滚动视口只负责图片的横向滚动 */}
+			<section style={viewportStyle}>
+				<section style={scrollerStyle}>
+					{images.map(image => (
+						<section key={image.id} style={itemStyle()}>
+							<ImageBlock image={image} theme={theme} />
+						</section>
+					))}
+				</section>
 			</section>
-			{/* 左右滑动查看 提示文案 */}
+			{/* 左右滑动查看 提示文案 - 放在滚动视口外部,横向滚动时不被带走,始终显示在卡片底部 */}
 			<p style={captionStyle} className="select-none">
 				左右滑动查看
 			</p>
-		</section>
+		</>
 	);
 }

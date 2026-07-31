@@ -24,7 +24,7 @@ import { useTranslation } from "react-i18next";
 import { useDocumentStore } from "../../stores/documentStore";
 import { useToastStore } from "../../stores/toastStore";
 import { Button } from "../ui/Button";
-import { NumberSlider, TextInput } from "../ui/Field";
+import { TextInput } from "../ui/Field";
 
 export function ImagesPanel() {
 	const { t } = useTranslation();
@@ -153,17 +153,6 @@ function SortableImageRow({ image, index, canRemove, onRemove, onUpdate }: Sorta
 					value={image.caption ?? ""}
 					placeholder={t("images.captionPlaceholder")}
 					onChange={caption => onUpdate({ caption })}
-				/>
-			</div>
-			<div className="mt-2">
-				<NumberSlider
-					label={t("images.ratioLabel")}
-					suffix=" : 1"
-					min={0.4}
-					max={2.4}
-					step={0.05}
-					value={Number(image.ratio.toFixed(2))}
-					onChange={ratio => onUpdate({ ratio })}
 				/>
 			</div>
 		</li>

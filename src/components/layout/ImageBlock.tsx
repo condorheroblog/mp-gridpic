@@ -22,7 +22,7 @@ export function ImageBlock({ image, theme, style, imageStyle }: ImageBlockProps)
 			<ImageCell
 				image={image}
 				theme={theme}
-				style={{ width: "100%", aspectRatio: `${image.ratio}`, ...imageStyle }}
+				style={{ width: "100%", ...imageStyle }}
 			/>
 			<ImageCaption image={image} theme={theme} position="below" />
 		</section>

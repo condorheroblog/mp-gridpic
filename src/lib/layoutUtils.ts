@@ -1,5 +1,3 @@
-import type { ImageItem } from "../types";
-
 /**
  * 把顺序数组按固定长度切分,便于网格版式按行渲染。
  */
@@ -24,19 +22,14 @@ export function getColumnSpacing(index: number, total: number, gap: number) {
 }
 
 /**
- * 按累计高度把图片分配到较短的一列,用于瀑布流版式。
+ * 把图片按顺序轮流分到各列,用于瀑布流版式。
  */
-export function distributeWaterfall(images: ImageItem[], columns: number): ImageItem[][] {
-	const buckets: ImageItem[][] = Array.from({ length: columns }, () => []);
-	const totals = Array.from<number>({ length: columns }).fill(0);
-	images.forEach((image) => {
-		let target = 0;
-		for (let index = 1; index < columns; index++) {
-			if (totals[index] < totals[target])
-				target = index;
-		}
-		buckets[target].push(image);
-		totals[target] += 1 / Math.max(image.ratio, 0.1);
+export function distributeWaterfall<T>(items: T[], columns: number): T[][] {
+	if (columns <= 0)
+		return [items];
+	const buckets: T[][] = Array.from({ length: columns }, () => []);
+	items.forEach((item, index) => {
+		buckets[index % columns].push(item);
 	});
 	return buckets;
 }
