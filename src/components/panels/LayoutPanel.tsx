@@ -1,4 +1,3 @@
-import type { LayoutKind } from "../../types";
 /**
  * 版式面板 - 选择版式 + 显示描述
  */
@@ -7,19 +6,7 @@ import clsx from "clsx";
 import { useTranslation } from "react-i18next";
 import { LAYOUT_PRESETS } from "../../data/layouts";
 import { useDocumentStore } from "../../stores/documentStore";
-
-const ICONS: Record<LayoutKind, string> = {
-	"single": "▭",
-	"double-row": "▭▭",
-	"double-col": "▤",
-	"triple-pyramid": "△",
-	"grid-2": "▦²",
-	"grid-3": "▦³",
-	"grid-4": "▦⁴",
-	"waterfall": "≣",
-	"hscroll": "→",
-	"vscroll": "↓",
-};
+import { LayoutIcon } from "../icons/LayoutIcon";
 
 export function LayoutPanel() {
 	const { t } = useTranslation();
@@ -45,7 +32,7 @@ export function LayoutPanel() {
 									: "border-zinc-200 bg-white hover:border-indigo-300 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-indigo-500/60",
 							)}
 						>
-							<span className="text-base">{ICONS[preset.kind]}</span>
+							<LayoutIcon kind={preset.kind} className="h-5 w-5" />
 							<span className="font-medium">{t(`layout.${preset.kind}`)}</span>
 							<span className="text-[10px] text-zinc-500 dark:text-zinc-400">{t(`layout.desc.${preset.kind}`)}</span>
 						</button>
