@@ -1,68 +1,100 @@
 /**
- * 富文本剪贴板写入
- * - 优先使用 navigator.clipboard.write([ClipboardItem]) 写入 text/html + text/plain
- * - 降级方案:使用隐藏的 contenteditable + execCommand("copy"),触发 copy 事件并写入 text/html
- * - 都失败时抛出错误,UI 层用 toast 提示
+ * 复制到公众号:同时写入 text/html 与 text/plain 两个通道。
  *
- * HTML 字符串额外处理:
- *  - 公众号编辑器对换行非常敏感,把所有换行折叠成空字符串,避免产生 <br> 或 <p>
- *    把多行属性粘贴到一起。
+ *  - 优先使用 Async Clipboard API(navigator.clipboard.write + ClipboardItem),
+ *    公众号编辑器 / Word / 邮件编辑器会读取 text/html 并保留全部内联样式;
+ *  - 不支持时(旧浏览器、非安全上下文)回退到"隐藏 contenteditable 容器 +
+ *    copy 事件 setData + execCommand('copy')"方案。
  */
-export async function copyHtmlToClipboard(html: string, plainText?: string): Promise<boolean> {
-	if (typeof window === "undefined")
-		return false;
-	const compactHtml = html.replace(/\s+/g, " ").trim();
-	const text = plainText ?? compactHtml;
-	if (navigator?.clipboard?.write && typeof ClipboardItem !== "undefined") {
-		try {
-			const item = new ClipboardItem({
-				"text/html": new Blob([compactHtml], { type: "text/html" }),
-				"text/plain": new Blob([text], { type: "text/plain" }),
-			});
-			await navigator.clipboard.write([item]);
-			return true;
-		}
-		catch {
-			// 继续走降级方案
-		}
-	}
-	return copyHtmlViaExecCommand(compactHtml, text);
+
+export type CopyChannel = "clipboard-api" | "exec-command";
+
+export interface CopyResult {
+	channel: CopyChannel
 }
 
-function copyHtmlViaExecCommand(html: string, text: string): boolean {
-	const container = document.createElement("div");
-	container.contentEditable = "true";
-	container.style.position = "fixed";
-	container.style.left = "-10000px";
-	container.style.top = "0";
-	container.style.opacity = "0";
-	container.style.whiteSpace = "pre";
-	container.innerHTML = html;
-	document.body.appendChild(container);
+function toHtmlBlob(html: string): Blob {
+	return new Blob([html], { type: "text/html" });
+}
 
-	const range = document.createRange();
-	range.selectNodeContents(container);
-	const selection = window.getSelection();
-	const previousSelection = selection && selection.rangeCount > 0 ? selection.getRangeAt(0) : null;
-	if (selection) {
-		selection.removeAllRanges();
-		selection.addRange(range);
+function toTextBlob(text: string): Blob {
+	return new Blob([text], { type: "text/plain" });
+}
+
+async function copyViaClipboardApi(html: string, text: string): Promise<boolean> {
+	if (!navigator.clipboard || typeof ClipboardItem === "undefined") {
+		return false;
 	}
-
-	let success = false;
 	try {
-		success = document.execCommand("copy");
+		const data: Record<string, Blob> = {
+			"text/html": toHtmlBlob(html),
+			"text/plain": toTextBlob(text),
+		};
+		await navigator.clipboard.write([new ClipboardItem(data)]);
+		return true;
 	}
 	catch {
-		success = false;
+		return false;
 	}
+}
 
-	if (selection) {
-		selection.removeAllRanges();
-		if (previousSelection)
-			selection.addRange(previousSelection);
+/** 回退方案:选区 + copy 事件双通道写入 */
+function copyViaExecCommand(html: string, text: string): boolean {
+	const holder = document.createElement("div");
+	holder.setAttribute("contenteditable", "true");
+	holder.setAttribute("aria-hidden", "true");
+	holder.style.cssText = [
+		"position:fixed",
+		"top:0",
+		"left:-9999px",
+		"width:640px",
+		"height:auto",
+		"opacity:0",
+		"pointer-events:none",
+	].join(";");
+	holder.innerHTML = html;
+	document.body.appendChild(holder);
+
+	const onCopy = (event: ClipboardEvent) => {
+		event.clipboardData?.setData("text/html", html);
+		event.clipboardData?.setData("text/plain", text);
+		event.preventDefault();
+	};
+	document.addEventListener("copy", onCopy);
+
+	let ok = false;
+	try {
+		if (typeof document.execCommand !== "function") {
+			return false;
+		}
+		const selection = window.getSelection();
+		const range = document.createRange();
+		range.selectNodeContents(holder);
+		selection?.removeAllRanges();
+		selection?.addRange(range);
+		ok = document.execCommand("copy");
+		selection?.removeAllRanges();
 	}
-	document.body.removeChild(container);
-	void text;
-	return success;
+	catch {
+		ok = false;
+	}
+	finally {
+		document.removeEventListener("copy", onCopy);
+		holder.remove();
+	}
+	return ok;
+}
+
+/**
+ * 把排版结果复制到剪贴板
+ * @throws 当两种通道都失败时抛出错误,由 UI 层提示用户手动复制
+ */
+export async function copyHtmlToClipboard(html: string, text: string): Promise<CopyResult> {
+	if (await copyViaClipboardApi(html, text)) {
+		return { channel: "clipboard-api" };
+	}
+	if (copyViaExecCommand(html, text)) {
+		return { channel: "exec-command" };
+	}
+	throw new Error("CLIPBOARD_UNAVAILABLE");
 }

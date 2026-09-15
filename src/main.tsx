@@ -1,19 +1,16 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App";
-import { initTheme } from "./stores/themeStore";
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { App } from "./App";
 import "./i18n";
 import "./index.css";
 
-// 应用主题：在第一次渲染前同步应用，避免主题闪烁
-initTheme();
+const container = document.getElementById("root");
+if (!container) {
+	throw new Error("Root container #root not found");
+}
 
-const rootEl = document.getElementById("root");
-if (!rootEl)
-	throw new Error("Root element #root not found");
-
-ReactDOM.createRoot(rootEl).render(
-	<React.StrictMode>
+createRoot(container).render(
+	<StrictMode>
 		<App />
-	</React.StrictMode>,
+	</StrictMode>,
 );

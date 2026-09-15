@@ -1,15 +1,127 @@
 @import "tailwindcss";
 
-/* Tailwind v4: 把暗色变体从默认的 prefers-color-scheme 改成基于 .dark class */
+/* class 模式暗色主题:由 <html class="dark"> 控制(与 index.html 防闪烁脚本一致) */
 @custom-variant dark (&:where(.dark, .dark *));
 
-html,
-body,
-#root {
-	height: 100%;
+@theme {
+	--font-sans:
+		"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+		"Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial,
+		sans-serif;
+
+	--animate-fade-in: fade-in 0.28s ease both;
+	--animate-slide-up: slide-up 0.3s cubic-bezier(0.21, 1.02, 0.73, 1) both;
+	--animate-float: float 6s ease-in-out infinite;
 }
 
-/* 公众号移动端滚动体验：body 留出滚动条，避免橡皮筋 */
-html {
-	-webkit-text-size-adjust: 100%;
+@keyframes fade-in {
+	from {
+		opacity: 0;
+		transform: translateY(6px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes slide-up {
+	from {
+		opacity: 0;
+		transform: translate(-50%, 12px);
+	}
+	to {
+		opacity: 1;
+		transform: translate(-50%, 0);
+	}
+}
+
+@keyframes float {
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(-10px);
+	}
+}
+
+@layer base {
+	html {
+		-webkit-tap-highlight-color: transparent;
+		scroll-behavior: smooth;
+	}
+
+	body {
+		@apply bg-zinc-50 font-sans text-zinc-900 antialiased dark:bg-zinc-950 dark:text-zinc-100;
+		text-rendering: optimizeLegibility;
+	}
+
+	/* 有触屏设备优先保证触控跟手(核心滑动体验) */
+	* {
+		-webkit-overflow-scrolling: touch;
+	}
+
+	::selection {
+		@apply bg-indigo-500/25;
+	}
+}
+
+@layer components {
+	/* 文章预览表面:始终模拟公众号浅色阅读环境,与 App 主题解耦 */
+	.article-surface {
+		@apply bg-white text-zinc-900;
+	}
+
+	.article-surface img {
+		user-select: none;
+	}
+
+	/* 预览区滚动容器使用纤细滚动条 */
+	.article-surface [data-ignore-width]::-webkit-scrollbar,
+	.article-surface section[style*="overflow-y:auto"]::-webkit-scrollbar {
+		height: 5px;
+		width: 5px;
+	}
+
+	.article-surface [data-ignore-width]::-webkit-scrollbar-thumb,
+	.article-surface section[style*="overflow-y:auto"]::-webkit-scrollbar-thumb {
+		background-color: rgba(99, 102, 241, 0.35);
+		border-radius: 9999px;
+	}
+}
+
+/* range 滑块统一样式(明/暗) */
+input[type="range"].range {
+	@apply h-2 w-full cursor-pointer appearance-none rounded-full bg-zinc-200 dark:bg-zinc-700;
+}
+
+input[type="range"].range::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 18px;
+	height: 18px;
+	border-radius: 9999px;
+	background-color: #6366f1;
+	border: 3px solid #fff;
+	box-shadow: 0 1px 4px rgb(0 0 0 / 25%);
+	transition: transform 0.15s ease;
+}
+
+input[type="range"].range::-webkit-slider-thumb:hover {
+	transform: scale(1.12);
+}
+
+input[type="range"].range::-moz-range-thumb {
+	width: 18px;
+	height: 18px;
+	border-radius: 9999px;
+	background-color: #6366f1;
+	border: 3px solid #fff;
+	box-shadow: 0 1px 4px rgb(0 0 0 / 25%);
+}
+
+/* color input 极简样式 */
+input[type="color"].color-field {
+	@apply h-9 w-12 cursor-pointer rounded-md border border-zinc-300 bg-white p-0.5 dark:border-zinc-700 dark:bg-zinc-900;
 }
